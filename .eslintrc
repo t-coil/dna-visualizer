@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+
+    "globals": {
+        "React": true
+    },
+
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+
+    "plugins": [
+        "react"
+    ],
+
+    "extends": "airbnb",
+
+    "rules": {
+        "linebreak-style": 0,
+        "indent": 0,
+        "react/jsx-indent": [2, 4],
+        "react/jsx-filename-extension": 0,
+        "comma-dangle": 0,
+        "arrow-parens": 0,
+        "arrow-body-style": 0,
+        "max-len": 0
+    }
+}

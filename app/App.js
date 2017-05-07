@@ -1,13 +1,13 @@
 import React from 'react';
+import DotBracket from './components/DotBracket';
+import ColorContainer from './components/ColorContainer';
 
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            Hello World ReactJS!!!
-         </div>
-      );
-   }
-}
+const App = () => (
+    <div>
+        <h1 className="page-title">DNA Visualizer</h1>
+        <DotBracket />
+        <ColorContainer />
+    </div>
+);
 
 export default App;
