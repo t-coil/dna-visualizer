@@ -16,9 +16,8 @@ function updateObject(oldObject, newValues) {
     return Object.assign({}, oldObject, newValues);
 }
 
-let newBases;
-
-const bases = (state = initialBaseState, action) => {
+const bases = (state = initialBaseState.bases, action) => {
+    let newBases;
     switch (action.type) {
         case 'CHANGE_COLOR':
             newBases = updateItemInArray(state, action.id, base => {

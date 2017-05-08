@@ -23,3 +23,7 @@ svg {
 	margin: auto;
 	display: block;
 }
+
+.label {
+	font-size: 10px;
+}

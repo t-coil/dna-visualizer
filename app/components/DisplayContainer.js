@@ -3,7 +3,9 @@ import Molecule from './Molecule';
 
 const mapStateToProps = state => {
     return {
-        bases: state.bases
+        bases: state.bases,
+        sequence: state.sequence,
+        dbn: state.dbn
     };
 };
 
