@@ -72,6 +72,9 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         return null;
     }
 
+    const simulation = d3.forceSimulation()
+        .nodes(seq);
+
     const svg = d3.select('.dna-container')
         .append('svg');
     const width = 960;
@@ -87,9 +90,6 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         4: '3, 2',
         5: null
     };
-
-    const simulation = d3.forceSimulation()
-        .nodes(seq);
 
     const link = svg.append('g')
         .attr('class', 'links')
@@ -109,7 +109,11 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .append('g')
         .append('circle')
         .attr('r', radius)
-        .attr('fill', d => _.get(_.find(bases, ['id', d.char]), 'color', '#000'));
+        .attr('fill', d => _.get(_.find(bases, ['id', d.char]), 'color', '#000'))
+        .call(d3.drag()
+            .on('start', dragStarted)
+            .on('drag', dragged)
+            .on('end', dragEnded));
 
     const label = svg.selectAll('text')
         .data(seq)
@@ -141,7 +145,7 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .force('y', d3.forceY())
         .force('link', linkForce);
 
-    simulation.on('tick', () => {
+    function tick() {
         node
             .attr('cx', d => d.x = Math.max(radius, Math.min(960 - radius, d.x)))
             .attr('cy', d => d.y = Math.max(radius, Math.min(600 - radius, d.y)));
@@ -155,7 +159,31 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         label
             .attr('x', d => d.x)
             .attr('y', d => d.y);
-    });
+    }
+
+    simulation.on('tick', tick);
+
+    function dragStarted(d) {
+        if (!d3.event.active) {
+            simulation.alphaTarget(0.3).restart();
+        }
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+        tick();
+    }
+
+    function dragEnded(d) {
+        if (!d3.event.active) {
+            simulation.alphaTarget(0);
+        }
+        d.fx = null;
+        d.fy = null;
+    }
 
     return simulation;
 };
