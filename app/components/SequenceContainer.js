@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeSequence: sequence => dispatch(changeSequence(sequence)),
+        changeSequence: sequence => dispatch(changeSequence(sequence.toUpperCase())),
         changeDBN: dbn => dispatch(changeDBN(dbn)),
         addErrorMessage: message => dispatch(addErrorMessage(message)),
         removeErrorMessage: () => dispatch(removeErrorMessage()),
