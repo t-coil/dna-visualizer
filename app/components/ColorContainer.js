@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ColorSelector from './ColorSelector';
 import { changeColor, toggleColorPicker } from '../actions/index';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         bases: state.bases
     };

@@ -5,7 +5,8 @@ import { createStore } from 'redux';
 import dnaVisualizer from './reducers';
 import App from './App';
 
-import './main.css';
+import './styles/main.css';
+import './styles/force-graph.css';
 
 const store = createStore(dnaVisualizer);
 

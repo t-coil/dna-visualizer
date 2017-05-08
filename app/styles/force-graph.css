@@ -1,0 +1,25 @@
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+ 
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.node-container {
+	margin: auto;
+}
+
+svg {
+	display: block;
+	width: 960px;
+	height: 600px;
+	margin: auto;
+}
+
+.nodes {
+	margin: auto;
+	display: block;
+}
