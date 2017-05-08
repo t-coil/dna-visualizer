@@ -40,3 +40,24 @@ export const removeErrorMessage = () => {
         type: 'REMOVE_ERROR_MESSAGE'
     };
 };
+
+export const changeFont = font => {
+    return {
+        type: 'CHANGE_FONT',
+        font
+    };
+};
+
+export const changeBaseSize = size => {
+    return {
+        type: 'CHANGE_BASE_SIZE',
+        size
+    };
+};
+
+export const changeLineWidth = width => {
+    return {
+        type: 'CHANGE_LINE_WIDTH',
+        width
+    };
+};

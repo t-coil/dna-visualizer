@@ -6,7 +6,8 @@ const mapStateToProps = state => {
     return {
         bases: state.bases,
         sequence: state.sequence,
-        dbn: state.dbn
+        dbn: state.dbn,
+        styles: state.styles
     };
 };
 

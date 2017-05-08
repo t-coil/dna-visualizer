@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('./assets/Open_Sans/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Fenix';
+    src: url('./assets/Fenix/Fenix-Regular.ttf');
+}
+
 html, body, div {
     margin: 0;
     padding: 0;
@@ -16,30 +26,54 @@ input {
 .page-title {
     color: blue;
     text-align: center;
+    font-family: 'Open Sans';
 }
 
 .input-container {
-    width: 55%;
+    width: 50%;
     display: inline-block;
     float: left;
+    margin: 0 10px;
 }
 
 .dbn-container {
     width: 100%;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.options-container {
+    display: inline-block;
+    width: 40%;
+    overflow: hidden;
+    margin: 10px auto;
+}
+
+.slider-container {
+    width: 20%;
+    overflow: hidden;
+    text-align: left;
+    margin: 10px;
 }
 
 form {
-    width: 70%;
+    width: 80%;
     margin: 10px auto;
-    overflow: auto;
+    display: flex;
+    flex-direction: row;
 }
 
-label {
-    font-size: 10px;
+.small-label {
+    font-size: 11px;
     display: block;
     text-align: left;
+}
+
+.medium-label {
+    font-size: 12px;
+    display: inline-block;
 }
 
 .upload-button {
@@ -51,7 +85,22 @@ label {
     border-radius: 2px;
     display: inline-block;
     width: 100px;
-    position: relative;
+    height: 50px;
+    margin: 10px;
+}
+
+.slider {
+    width: 80%;
+    margin: 10px;
+}
+
+select {
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: #6496c8;
+    color: #fff;
+    margin: 10px;
 }
 
 .base-button {
@@ -72,7 +121,7 @@ label {
 
 .color-picker {
     width: 25%;
-    display: inline-block;
+    float: left;
 }
 
 .popover {

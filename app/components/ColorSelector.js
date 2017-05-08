@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SketchPicker } from 'react-color';
+import { GithubPicker } from 'react-color';
 
 const ColorSelector = ({ onChange, onClick, bases }) => {
     const colorPickers = bases.map(base =>
@@ -9,7 +9,7 @@ const ColorSelector = ({ onChange, onClick, bases }) => {
             { base.colorPicker ?
                 <div className="popover">
                     <div className="cover" />
-                    <SketchPicker color={base.color} onChange={onChange} />
+                    <GithubPicker color={base.color} onChange={onChange} />
                 </div>
                 : null }
         </div>

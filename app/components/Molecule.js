@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { GraphGenerator, generateNewGraph, updateGraphColors } from './GraphGenerator';
+import { GraphGenerator, generateNewGraph, updateGraphStyles } from './GraphGenerator';
 
 class Molecule extends Component {
     componentDidMount() {
@@ -16,7 +16,7 @@ class Molecule extends Component {
                 this.props.dbn,
                 this.props.bases);
         } else {
-            updateGraphColors(this.props.bases);
+            updateGraphStyles(this.props.bases, this.props.styles);
         }
     }
 
@@ -33,7 +33,12 @@ Molecule.propTypes = {
         color: PropTypes.string.isRequired,
         colorPicker: PropTypes.bool.isRequired
     })).isRequired,
-    addErrorMessage: PropTypes.func.isRequired
+    styles: PropTypes.shape({
+        baseSize: PropTypes.number.isRequired,
+        lineWidth: PropTypes.number.isRequired,
+        font: PropTypes.string.isRequired
+    }).isRequired,
+    addErrorMessage: PropTypes.func.isRequired,
 };
 
 export default Molecule;

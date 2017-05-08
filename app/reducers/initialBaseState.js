@@ -22,7 +22,12 @@ const initialBaseState = {
         }
     ],
     sequence: 'TTGGGGGGACTGGGGCTCCCATTCGTTGCCTTTATAAATCCTTGCAAGCCAATTAACAGGTTGGTGAGGGGCTTGGGTGAAAAGGTGCTTAAGACTCCGT',
-    dbn: '...(((((.(...).)))))........(((((.....((..(.((((((..(((.((...)).)))..)))))).).)))))))...............'
+    dbn: '...(((((.(...).)))))........(((((.....((..(.((((((..(((.((...)).)))..)))))).).)))))))...............',
+    styles: {
+        baseSize: 6,
+        lineWidth: 2,
+        font: 'Open Sans'
+    }
 };
 
 export default initialBaseState;

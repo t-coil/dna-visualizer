@@ -7,8 +7,10 @@ const App = () => (
     <div>
         <h1 className="page-title">DNA Visualizer</h1>
         <SequenceContainer />
-        <ColorContainer />
-        <DisplayContainer />
+        <div className="dna-container">
+            <ColorContainer />
+            <DisplayContainer />
+        </div>
     </div>
 );
 

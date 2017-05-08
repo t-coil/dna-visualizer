@@ -4,7 +4,15 @@ import * as d3 from 'd3';
 let errorCallback;
 
 function createNodeArray(sequence) {
-    return sequence.split('').map((char) => ({ char }));
+    return sequence.split('').map((char, index) => {
+        if (index === 0) {
+            return { char, prime: 5 };
+        } else if (index === sequence.length - 1) {
+            return { char, prime: 3 };
+        }
+
+        return { char };
+    });
 }
 
 function createLinkData(db) {
@@ -33,14 +41,23 @@ function createLinkData(db) {
         errorCallback('Invalid Dot-Bracket Notation');
     }
 
-    phosphate.push({ source: 0, target: db.length - 1, value: 5 });
+    phosphate.unshift({ source: 0, target: db.length - 1, value: 5 });
     return phosphate.concat(linkData);
 }
 
-export const updateGraphColors = (bases) => {
+export const updateGraphStyles = (bases, styles) => {
     d3.select('svg')
         .selectAll('circle')
-        .attr('fill', d => _.get(_.find(bases, ['id', d.char]), 'color', '#000'));
+        .attr('fill', d => _.get(_.find(bases, ['id', d.char]), 'color', '#000'))
+        .attr('r', styles.baseSize);
+
+    d3.select('svg')
+        .selectAll('line')
+        .attr('stroke-width', styles.lineWidth);
+
+    d3.select('svg')
+        .selectAll('text')
+        .style('font-family', styles.font);
 };
 
 export const GraphGenerator = (sequence, dbn, bases, callback) => {
@@ -51,15 +68,20 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
     const seq = createNodeArray(sequence);
     const links = createLinkData(dbn);
 
-    const svg = d3.select('#app')
+    const svg = d3.select('.dna-container')
         .append('svg');
     const width = 960;
     const height = 600;
     const radius = 5;
     const strokeColor = {
-        1: '#000',
-        4: '#999',
+        1: '#0e1717',
+        4: '#0e1717',
         5: '#fff'
+    };
+    const strokeStyle = {
+        1: null,
+        4: '3, 2',
+        5: null
     };
 
     const simulation = d3.forceSimulation()
@@ -72,32 +94,47 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .enter()
         .append('line')
         .attr('stroke-width', 2)
-        .style('stroke', d => strokeColor[d.value]);
+        .style('stroke', d => strokeColor[d.value])
+        .attr('stroke-dasharray', d => strokeStyle[d.value]);
 
     const node = svg.append('g')
         .attr('class', 'nodes')
         .selectAll('circle')
         .data(seq)
         .enter()
+        .append('g')
         .append('circle')
         .attr('r', radius)
         .attr('fill', d => _.get(_.find(bases, ['id', d.char]), 'color', '#000'));
 
-    const label = svg.selectAll('myText')
+    const label = svg.selectAll('text')
         .data(seq)
         .enter()
         .append('text')
-        .text(d => d.char)
-        .attr('class', 'label');
+        .attr('dx', 5)
+        .attr('dy', 5)
+        .text(d => {
+            const prime = _.get(d, 'prime');
+            if (prime) {
+                return `${d.char} ${prime}'`;
+            }
+            return d.char;
+        })
+        .attr('class', 'label')
+        .attr('fill', '#000')
+        .style('font-size', '15px')
+        .style('font-family', 'Open Sans');
 
     const linkForce = d3.forceLink(links)
         .distance(d => d.value)
         .strength(1);
 
     simulation
-        .force('charge', d3.forceManyBody().strength(-20))
+        .force('charge', d3.forceManyBody().strength(-100))
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force('collide', d3.forceCollide(radius * 2).strength(1))
+        .force('x', d3.forceX())
+        .force('y', d3.forceY())
         .force('link', linkForce);
 
     simulation.on('tick', () => {

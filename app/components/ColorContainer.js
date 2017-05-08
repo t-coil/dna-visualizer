@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => {
                 element = element.parentElement;
             }
             dispatch(changeColor(color.hex, element.id));
+            dispatch(toggleColorPicker(element.id, false));
         },
         onClick: (id, open) => dispatch(toggleColorPicker(id, open))
     };
