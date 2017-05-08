@@ -66,6 +66,7 @@ class SequenceDBN extends Component {
                     </div>
                     <button className="upload-button">Change Sequence</button>
                     <select name="font" onChange={this.handleFontSubmit}>
+                        <option id="select-label">Base Label Font</option>
                         <option value="Open Sans">Open Sans</option>
                         <option value="Feenix">Feenix</option>
                         <option value="Comic Sans MS">Comic Sans!!!</option>

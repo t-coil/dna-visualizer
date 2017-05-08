@@ -5,7 +5,7 @@ import DisplayContainer from './components/DisplayContainer';
 
 const App = () => (
     <div>
-        <h1 className="page-title">DNA Visualizer</h1>
+        <h1 className="page-title">DNA Secondary Structure Representation</h1>
         <SequenceContainer />
         <div className="dna-container">
             <ColorContainer />

@@ -19,6 +19,10 @@ input {
     width: 100%;
 }
 
+label {
+    font-family: 'Open Sans';
+}
+
 #id {
     width: 100%;
 }
@@ -76,6 +80,10 @@ form {
     display: inline-block;
 }
 
+#select-label {
+    display: none;
+}
+
 .upload-button {
     color: #fff;
     background-color: #6496c8;
@@ -112,6 +120,7 @@ select {
     font-size: 30px;
     margin: auto;
     display: block;
+    font-family: 'Open Sans';
 }
 
 .color-container {
