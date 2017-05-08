@@ -23,9 +23,18 @@ const mapDispatchToProps = dispatch => {
         changeDBN: dbn => dispatch(changeDBN(dbn)),
         addErrorMessage: message => dispatch(addErrorMessage(message)),
         removeErrorMessage: () => dispatch(removeErrorMessage()),
-        changeFont: font => dispatch(changeFont(font)),
-        changeBaseSize: size => dispatch(changeBaseSize(size)),
-        changeLineWidth: width => dispatch(changeLineWidth(width))
+        changeStyle: (type, update) => {
+            switch (type) {
+                case 'font':
+                    return dispatch(changeFont(update));
+                case 'baseSize':
+                    return dispatch(changeBaseSize(update));
+                case 'lineWidth':
+                    return dispatch(changeLineWidth(update));
+                default:
+                    return null;
+            }
+        }
     };
 };
 

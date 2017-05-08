@@ -17,6 +17,7 @@ svg {
 	width: 960px;
 	height: 600px;
 	margin: auto;
+	margin-bottom: 30px;
 }
 
 .nodes {

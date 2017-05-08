@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+function showError(error) {
+    if (error) {
+        return (
+            <div className="error-container">Error: {error}</div>
+        );
+    }
+    return null;
+}
+
 class SequenceDBN extends Component {
     constructor(props) {
         super(props);
@@ -12,20 +21,19 @@ class SequenceDBN extends Component {
             lineWidth: this.props.styles.lineWidth
         };
 
-        this.handleSequenceChange = this.handleSequenceChange.bind(this);
-        this.handleDBNChange = this.handleDBNChange.bind(this);
         this.handleSequenceSubmit = this.handleSequenceSubmit.bind(this);
-        this.handleFontSubmit = this.handleFontSubmit.bind(this);
-        this.handleBaseSizeChange = this.handleBaseSizeChange.bind(this);
-        this.handleLineWidthChange = this.handleLineWidthChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleSequenceChange(event) {
-        this.setState({ sequence: event.target.value });
-    }
-
-    handleDBNChange(event) {
-        this.setState({ dbn: event.target.value });
+    handleChange(event) {
+        const type = event.target.name;
+        const value = event.target.value;
+        this.setState(() => {
+            return { [type]: value };
+        });
+        if (type !== 'dbn' && type !== 'sequence') {
+            this.props.changeStyle(type, value);
+        }
     }
 
     handleSequenceSubmit(event) {
@@ -39,50 +47,37 @@ class SequenceDBN extends Component {
         }
     }
 
-    handleFontSubmit(event) {
-        this.setState({ font: event.target.value });
-        this.props.changeFont(event.target.value);
-    }
-
-    handleBaseSizeChange(event) {
-        this.setState({ baseSize: event.target.value });
-        this.props.changeBaseSize(event.target.value);
-    }
-
-    handleLineWidthChange(event) {
-        this.setState({ lineWidth: event.target.value });
-        this.props.changeLineWidth(event.target.value);
-    }
-
     render() {
         return (
-            <div className="dbn-container">
-                <form onSubmit={this.handleSequenceSubmit}>
-                    <div className="input-container">
-                        <input value={this.state.sequence} onChange={this.handleSequenceChange} />
-                        <label htmlFor="sequence" className="small-label">Sequence</label>
-                        <input value={this.state.dbn} onChange={this.handleDBNChange} />
-                        <label htmlFor="dbn" className="small-label">Dot-Bracket Notation</label>
-                    </div>
-                    <button className="upload-button">Change Sequence</button>
-                    <select name="font" onChange={this.handleFontSubmit}>
-                        <option id="select-label">Base Label Font</option>
-                        <option value="Open Sans">Open Sans</option>
-                        <option value="Feenix">Feenix</option>
-                        <option value="Comic Sans MS">Comic Sans!!!</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                    <div className="slider-container">
-                        <label htmlFor="base-size" className="medium-label">Base Size</label>
-                        <input className="slider" value={this.state.baseSize} onChange={this.handleBaseSizeChange} type="range" min="2" max="10" name="base-size" />
-                    </div>
-                    <div className="slider-container">
-                        <label htmlFor="line-width" className="medium-label">Line Width</label>
-                        <input className="slider" value={this.state.lineWidth} onChange={this.handleLineWidthChange} type="range" min="1" max="10" name="line-width" />
-                    </div>
-                </form>
-                {this.props.error ? this.props.error : null }
+            <div>
+                <div className="dbn-container">
+                    <form onSubmit={this.handleSequenceSubmit}>
+                        <div className="input-container">
+                            <input value={this.state.sequence} onChange={this.handleChange} name="sequence" />
+                            <label htmlFor="sequence" className="small-label">Sequence</label>
+                            <input value={this.state.dbn} onChange={this.handleChange} name="dbn" />
+                            <label htmlFor="dbn" className="small-label">Dot-Bracket Notation</label>
+                        </div>
+                        <button className="upload-button">Change Sequence</button>
+                        <select name="font" onChange={this.handleChange}>
+                            <option id="select-label">Base Label Font</option>
+                            <option value="Open Sans">Open Sans</option>
+                            <option value="Feenix">Feenix</option>
+                            <option value="Comic Sans MS">Comic Sans!!!</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                        <div className="slider-container">
+                            <label htmlFor="base-size" className="medium-label">Base Size</label>
+                            <input className="slider" value={this.state.baseSize} onChange={this.handleChange} type="range" min="2" max="10" name="baseSize" />
+                        </div>
+                        <div className="slider-container">
+                            <label htmlFor="line-width" className="medium-label">Line Width</label>
+                            <input className="slider" value={this.state.lineWidth} onChange={this.handleChange} type="range" min="1" max="10" name="lineWidth" />
+                        </div>
+                    </form>
+                </div>
+                {showError(this.props.error)}
             </div>
         );
     }
@@ -95,15 +90,13 @@ SequenceDBN.propTypes = {
     changeDBN: PropTypes.func.isRequired,
     addErrorMessage: PropTypes.func.isRequired,
     removeErrorMessage: PropTypes.func.isRequired,
-    changeFont: PropTypes.func.isRequired,
     error: PropTypes.string,
     styles: PropTypes.shape({
         baseSize: PropTypes.number.isRequired,
         lineWidth: PropTypes.number.isRequired,
         font: PropTypes.string.isRequired
     }).isRequired,
-    changeBaseSize: PropTypes.func.isRequired,
-    changeLineWidth: PropTypes.func.isRequired
+    changeStyle: PropTypes.func.isRequired
 };
 
 export default SequenceDBN;

@@ -68,6 +68,10 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
     const seq = createNodeArray(sequence);
     const links = createLinkData(dbn);
 
+    if (!Array.isArray(links)) {
+        return null;
+    }
+
     const svg = d3.select('.dna-container')
         .append('svg');
     const width = 960;

@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-	devtool: 'eval-source-map',
+	devtool: 'source-map',
 	entry: './app/index.js',
 	output: {
 		path: path.resolve(__dirname, 'build'),

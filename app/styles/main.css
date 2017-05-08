@@ -62,6 +62,12 @@ label {
     margin: 10px;
 }
 
+.error-container {
+    text-align: center;
+    font-family: 'Open Sans';
+    color: red;
+}
+
 form {
     width: 80%;
     margin: 10px auto;
