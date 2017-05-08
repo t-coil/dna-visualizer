@@ -6,7 +6,7 @@ html, body, div {
 
 input {
     margin: 5px auto;
-    width: 30%;
+    width: 100%;
 }
 
 #id {
@@ -18,10 +18,28 @@ input {
     text-align: center;
 }
 
+.input-container {
+    width: 55%;
+    display: inline-block;
+    float: left;
+}
+
 .dbn-container {
     width: 100%;
     margin: auto;
     text-align: center;
+}
+
+form {
+    width: 70%;
+    margin: 10px auto;
+    overflow: auto;
+}
+
+label {
+    font-size: 10px;
+    display: block;
+    text-align: left;
 }
 
 .upload-button {
@@ -31,6 +49,9 @@ input {
     border: none;
     padding: 10px;
     border-radius: 2px;
+    display: inline-block;
+    width: 100px;
+    position: relative;
 }
 
 .base-button {

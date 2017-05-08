@@ -1,12 +1,12 @@
 import React from 'react';
-import DotBracket from './components/DotBracket';
+import SequenceContainer from './components/SequenceContainer';
 import ColorContainer from './components/ColorContainer';
 import DisplayContainer from './components/DisplayContainer';
 
 const App = () => (
     <div>
         <h1 className="page-title">DNA Visualizer</h1>
-        <DotBracket />
+        <SequenceContainer />
         <ColorContainer />
         <DisplayContainer />
     </div>

@@ -1,18 +1,23 @@
-import * as d3 from 'd3';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import GraphGenerator from './GraphGenerator';
+import { GraphGenerator, generateNewGraph, updateGraphColors } from './GraphGenerator';
 
 class Molecule extends Component {
     componentDidMount() {
-        GraphGenerator(this.props.sequence, this.props.dbn, this.props.bases);
+        GraphGenerator(this.props.sequence,
+            this.props.dbn,
+            this.props.bases,
+            this.props.addErrorMessage);
     }
 
-    componentDidUpdate() {
-        d3.select('svg')
-            .selectAll('circle')
-            .attr('fill', d => _.get(_.find(this.props.bases, ['id', d.char]), 'color', '#000'));
+    componentDidUpdate(prevProps) {
+        if (prevProps.sequence !== this.props.sequence || prevProps.dbn !== this.props.dbn) {
+            generateNewGraph(this.props.sequence,
+                this.props.dbn,
+                this.props.bases);
+        } else {
+            updateGraphColors(this.props.bases);
+        }
     }
 
     render() {
@@ -27,7 +32,8 @@ Molecule.propTypes = {
         id: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
         colorPicker: PropTypes.bool.isRequired
-    })).isRequired
+    })).isRequired,
+    addErrorMessage: PropTypes.func.isRequired
 };
 
 export default Molecule;

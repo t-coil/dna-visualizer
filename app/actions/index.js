@@ -13,3 +13,30 @@ export const toggleColorPicker = (id, open) => {
         open
     };
 };
+
+export const changeSequence = sequence => {
+    return {
+        type: 'CHANGE_SEQUENCE',
+        sequence
+    };
+};
+
+export const changeDBN = dbn => {
+    return {
+        type: 'CHANGE_DBN',
+        dbn
+    };
+};
+
+export const addErrorMessage = message => {
+    return {
+        type: 'ADD_ERROR_MESSAGE',
+        message
+    };
+};
+
+export const removeErrorMessage = () => {
+    return {
+        type: 'REMOVE_ERROR_MESSAGE'
+    };
+};

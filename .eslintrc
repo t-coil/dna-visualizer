@@ -25,14 +25,16 @@
     "rules": {
         "linebreak-style": 0,
         "indent": 0,
-        "react/jsx-indent": [2, 4],
-        "react/jsx-filename-extension": 0,
         "comma-dangle": 0,
         "arrow-parens": 0,
         "arrow-body-style": 0,
         "max-len": 0,
         "no-param-reassign": ["error", {"props": false}],
         "no-return-assign": 0,
-        "no-confusing-arrow": ["error", {"allowParens": true}]
+        "no-confusing-arrow": ["error", {"allowParens": true}],
+
+        "react/jsx-indent": [2, 4],
+        "react/jsx-filename-extension": 0,
+        "react/require-default-props": 0
     }
 }
