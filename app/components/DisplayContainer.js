@@ -5,8 +5,8 @@ import { addErrorMessage } from '../actions';
 const mapStateToProps = state => {
     return {
         bases: state.bases,
-        sequence: state.sequence,
-        dbn: state.dbn,
+        sequence: state.pair.sequence,
+        dbn: state.pair.dbn,
         styles: state.styles
     };
 };

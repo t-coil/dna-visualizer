@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import SequenceDBN from './SequenceDBN';
 import { changeFont,
-    changeSequence,
-    changeDBN,
+    changeSequenceAndDBN,
     addErrorMessage,
     removeErrorMessage,
     changeBaseSize,
@@ -10,8 +9,8 @@ import { changeFont,
 
 const mapStateToProps = state => {
     return {
-        sequence: state.sequence,
-        dbn: state.dbn,
+        sequence: state.pair.sequence,
+        dbn: state.pair.dbn,
         error: state.error,
         styles: state.styles
     };
@@ -19,8 +18,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeSequence: sequence => dispatch(changeSequence(sequence)),
-        changeDBN: dbn => dispatch(changeDBN(dbn)),
+        changeSequenceAndDBN: (sequence, dbn) => dispatch(changeSequenceAndDBN(sequence, dbn)),
         addErrorMessage: message => dispatch(addErrorMessage(message)),
         removeErrorMessage: () => dispatch(removeErrorMessage()),
         changeStyle: (type, update) => {

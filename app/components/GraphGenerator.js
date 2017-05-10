@@ -143,7 +143,7 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .force('collide', d3.forceCollide(radius * 2).strength(1))
         .force('x', d3.forceX())
         .force('y', d3.forceY())
-        .force('link', linkForce);
+        .force('links', linkForce);
 
     function tick() {
         node

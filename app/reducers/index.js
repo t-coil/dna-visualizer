@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
 import bases from './bases';
-import sequence from './sequence';
-import dbn from './dbn';
+import pair from './pair';
 import error from './error';
 import styles from './styles';
 
 const dnaVisualizer = combineReducers({
     bases,
-    sequence,
-    dbn,
+    pair,
     error,
     styles
 });

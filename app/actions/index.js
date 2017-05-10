@@ -14,16 +14,10 @@ export const toggleColorPicker = (id, open) => {
     };
 };
 
-export const changeSequence = sequence => {
+export const changeSequenceAndDBN = (sequence, dbn) => {
     return {
-        type: 'CHANGE_SEQUENCE',
-        sequence
-    };
-};
-
-export const changeDBN = dbn => {
-    return {
-        type: 'CHANGE_DBN',
+        type: 'CHANGE_SEQUENCE_AND_DBN',
+        sequence,
         dbn
     };
 };

@@ -23,6 +23,11 @@ class SequenceDBN extends Component {
 
         this.handleSequenceSubmit = this.handleSequenceSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        // this.validateSequence = this.validateSequence.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ sequence: nextProps.sequence });
     }
 
     handleChange(event) {
@@ -38,9 +43,10 @@ class SequenceDBN extends Component {
 
     handleSequenceSubmit(event) {
         event.preventDefault();
-        if (this.state.sequence.length === this.state.dbn.length) {
-            this.props.changeSequence(this.state.sequence);
-            this.props.changeDBN(this.state.dbn);
+        if (/[^A-z]+/.test(this.state.sequence)) {
+            this.props.addErrorMessage('Invalid sequence');
+        } else if (this.state.sequence.length === this.state.dbn.length) {
+            this.props.changeSequenceAndDBN(this.state.sequence.toUpperCase(), this.state.dbn);
             this.props.removeErrorMessage();
         } else {
             this.props.addErrorMessage('DBN Does Not Match Sequence Length');
@@ -62,7 +68,7 @@ class SequenceDBN extends Component {
                         <select name="font" onChange={this.handleChange}>
                             <option id="select-label">Base Label Font</option>
                             <option value="Open Sans">Open Sans</option>
-                            <option value="Feenix">Feenix</option>
+                            <option value="Fenix">Fenix</option>
                             <option value="Comic Sans MS">Comic Sans!!!</option>
                             <option value="Arial">Arial</option>
                             <option value="Times New Roman">Times New Roman</option>
@@ -86,8 +92,7 @@ class SequenceDBN extends Component {
 SequenceDBN.propTypes = {
     sequence: PropTypes.string.isRequired,
     dbn: PropTypes.string.isRequired,
-    changeSequence: PropTypes.func.isRequired,
-    changeDBN: PropTypes.func.isRequired,
+    changeSequenceAndDBN: PropTypes.func.isRequired,
     addErrorMessage: PropTypes.func.isRequired,
     removeErrorMessage: PropTypes.func.isRequired,
     error: PropTypes.string,
