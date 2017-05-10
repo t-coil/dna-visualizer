@@ -18,12 +18,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-<<<<<<< HEAD
         changeSequenceAndDBN: (sequence, dbn) => dispatch(changeSequenceAndDBN(sequence, dbn)),
-=======
-        changeSequence: sequence => dispatch(changeSequence(sequence.toUpperCase())),
-        changeDBN: dbn => dispatch(changeDBN(dbn)),
->>>>>>> ea65925c4185c22e6b14f203034507ac7c40015a
         addErrorMessage: message => dispatch(addErrorMessage(message)),
         removeErrorMessage: () => dispatch(removeErrorMessage()),
         changeStyle: (type, update) => {
