@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 
 let errorCallback;
 const basePairValue = 30;
+const endBaseValue = 40;
 
 function createNodeArray(sequence) {
     return sequence.split('').map((char, index) => {
@@ -44,7 +45,7 @@ function createLinkData(db) {
         errorCallback('Invalid Dot-Bracket Notation');
     }
 
-    phosphate.unshift({ source: 0, target: db.length - 1, value: 15 });
+    phosphate.unshift({ source: 0, target: db.length - 1, value: endBaseValue });
     return phosphate.concat(linkData);
 }
 
@@ -83,11 +84,6 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
     const width = 960;
     const height = 600;
     const radius = 5;
-    const strokeColor = {
-        1: '#0e1717',
-        4: '#0e1717',
-        5: '#fff'
-    };
 
     const link = svg.append('g')
         .attr('class', 'links')
@@ -96,7 +92,9 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .enter()
         .append('line')
         .attr('stroke-width', 2)
-        .style('stroke', d => strokeColor[d.value])
+        .style('stroke', d => {
+            return d.value === endBaseValue ? '#fff' : '#0e1717';
+        })
         .attr('stroke-dasharray', d => {
             return d.value === basePairValue ? '3, 2' : null;
         });
