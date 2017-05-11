@@ -2,6 +2,7 @@ import _ from 'lodash';
 import * as d3 from 'd3';
 
 let errorCallback;
+const basePairValue = 30;
 
 function createNodeArray(sequence) {
     return sequence.split('').map((char, index) => {
@@ -17,10 +18,12 @@ function createNodeArray(sequence) {
 
 function createLinkData(db) {
     const indices = [];
+    // We create a separate array for the phosphate backbone to
+    // create a better layout rendering.
     const phosphate = [];
     const linkData = db.split('').reduce((acc, char, index) => {
         if (index !== 0) {
-            phosphate.push({ source: index - 1, target: index, value: 1 });
+            phosphate.push({ source: index - 1, target: index, value: 20 });
         }
 
         if (char === '(') {
@@ -31,7 +34,7 @@ function createLinkData(db) {
                 return errorCallback('Invalid Dot-Bracket Notation');
             }
             indices.pop();
-            acc.push({ source, target: index, value: 4 });
+            acc.push({ source, target: index, value: basePairValue });
         }
 
         return acc;
@@ -41,7 +44,7 @@ function createLinkData(db) {
         errorCallback('Invalid Dot-Bracket Notation');
     }
 
-    phosphate.unshift({ source: 0, target: db.length - 1, value: 5 });
+    phosphate.unshift({ source: 0, target: db.length - 1, value: 15 });
     return phosphate.concat(linkData);
 }
 
@@ -85,11 +88,6 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         4: '#0e1717',
         5: '#fff'
     };
-    const strokeStyle = {
-        1: null,
-        4: '3, 2',
-        5: null
-    };
 
     const link = svg.append('g')
         .attr('class', 'links')
@@ -99,7 +97,9 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .append('line')
         .attr('stroke-width', 2)
         .style('stroke', d => strokeColor[d.value])
-        .attr('stroke-dasharray', d => strokeStyle[d.value]);
+        .attr('stroke-dasharray', d => {
+            return d.value === basePairValue ? '3, 2' : null;
+        });
 
     const node = svg.append('g')
         .attr('class', 'nodes')
@@ -134,16 +134,17 @@ export const GraphGenerator = (sequence, dbn, bases, callback) => {
         .style('font-family', 'Open Sans');
 
     const linkForce = d3.forceLink(links)
+        .iterations(8)
         .distance(d => d.value)
         .strength(1);
 
     simulation
-        .force('charge', d3.forceManyBody().strength(-100))
+        .force('charge', d3.forceManyBody().strength(-40))
+        .force('collide', d3.forceCollide())
+        .force('link', linkForce)
         .force('center', d3.forceCenter(width / 2, height / 2))
-        .force('collide', d3.forceCollide(radius * 2).strength(1))
-        .force('x', d3.forceX())
-        .force('y', d3.forceY())
-        .force('links', linkForce);
+        .force('x', d3.forceX().strength(0.05))
+        .force('y', d3.forceY().strength(0.05));
 
     function tick() {
         node

@@ -64,7 +64,7 @@ class SequenceDBN extends Component {
                             <input value={this.state.dbn} onChange={this.handleChange} name="dbn" />
                             <label htmlFor="dbn" className="small-label">Dot-Bracket Notation</label>
                         </div>
-                        <button className="upload-button">Change Sequence</button>
+                        <button className="default-button">Change Sequence</button>
                         <select name="font" onChange={this.handleChange}>
                             <option id="select-label">Base Label Font</option>
                             <option value="Open Sans">Open Sans</option>
